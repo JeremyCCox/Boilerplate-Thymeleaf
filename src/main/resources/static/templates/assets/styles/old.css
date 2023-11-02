@@ -1,0 +1,265 @@
+@page standard-page{
+    size: 8.5in 11in;
+    padding: 15px 2% 0 1%;
+    margin: 100px 4% 50px 4%;
+    @bottom-center {
+        content:element(footer);
+    }
+
+    @top-center{
+        content:element(header);
+    }
+}
+@page title-page{
+    border: black 1px solid;
+    /*page-break-before: avoid;*/
+    /*page-break-after: avoid;*/
+}
+
+.intro-pages{
+    page:title-page;
+    padding: 10%;
+}
+.standard-pages{
+    page:standard-page
+}
+body{
+    overflow-x: visible;
+    page:standard-page;
+    font-family: sans-serif;
+}
+/* LOOK INTO -fs-page-break-min-height:___ */
+header{
+    position: running(header);
+    display: flex;
+    height: 100px;
+    border-bottom: black 1px solid;
+}
+header img{
+    left:6%;
+    position: fixed;
+    align-self: center;
+    height: 38px;
+}
+header div{
+    text-align: center;
+    margin-top: 50px;
+}
+.headerText{
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+footer{
+    width: 100%;
+    position: running(footer);
+    border-top: 1px solid black;
+}
+.footerStyles{
+    display: flex;
+    justify-content: space-between;
+}
+#textSpan{
+    width: 100%;
+}
+/*#textSpan::before{*/
+/*    text-align: left;*/
+/*    content:"Wotherspoon Environmental Inc."*/
+/*}*/
+
+#textSpan::after{
+    text-align: right;
+    content: "Page "counter(page) " of " counter(pages);
+}
+.titlePage > img{
+    display: block;
+    margin: 10% auto 10% auto;
+    width: 100%;
+}
+.reportPage > img{
+    display: block;
+    margin: 10% auto 10% auto;
+    width: 70%;
+}
+.reportPage > p, .reportPage >h2, .reportPage >h4{
+    text-align: right;
+}
+
+.smallText{
+    font-size:smaller;
+}
+/*p,h1,h2, h3, h4,table{*/
+/*    font-family: Arial SansSerif;*/
+/*    margin-right: 10%;*/
+/*    margin-left: 10%;*/
+/*}*/
+span.content{
+    break-inside: avoid;
+}
+.facility-details{
+    width: 100%;
+
+}
+.facility-sub-table{
+    width: 49%;
+
+}
+td.facility-detail{
+    width:fit-content;
+    background-color: #ffff7b;
+}
+ul{
+    list-style-type: disc;
+}
+ul.nested-list{
+    list-style-type: circle;
+}
+ul > li{
+    padding: 1px;
+}
+
+tr{
+    page-break-inside: avoid;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.custom-page{
+    page-break-before: always;
+}
+td,th{
+    border: black 1px solid;
+}
+/*HEADERS*/
+.audit-item-category-header-first{
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+.audit-item-category-header{
+    page-break-before: always;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+.audit-item-sub-category-header{
+    page-break-before: auto;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+
+/*BODY*/
+.audit-item-body{
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    page-break-after: auto;
+}
+/*Standard rules*/
+.no-break{
+    page-break-before: avoid;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+.image-div{
+    page-break-inside: avoid;
+    text-align: center;
+}
+.image-div > img{
+    border:solid black 6px;
+}
+
+
+
+.facility-details__names{
+    width: 100%;
+    border:none;
+}
+.facility-details__names-title{
+    width: 16%;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.facility-details__names-body{
+    width: 65%;
+}
+.facility-details__names-active{
+    width: 15%;
+    text-align: right;
+    border:none;
+}
+.facility-details__main{
+    width: 100%;
+    border:none;
+    font-size: small;
+}
+.facility-details__main-title{
+    width: 16%;
+    text-align: right;
+    border:none;
+}
+.facility-details__main-body{
+    width: 50%;
+    border: solid black 1px;
+    box-sizing: border-box;
+}
+.facility-details__main-small-title{
+    width: 10%;
+    border:none;
+    text-align: right;
+}
+.facility-details__main-small-body{
+    width: 20%;
+    border: solid black 1px;
+}
+.facility-details__tri-body{
+    width:50%;
+
+}
+.facility-details__tri-text{
+    width:17%;
+    border:solid black 1px;
+}
+.facility-details__main-fill{
+    width:30%;
+    border:none;
+}
+.facility-contacts__style-cell{
+    width:10px;
+    border:none;
+}
+.facility-contacts__title-cells{
+    border:none;
+    font-size: small;
+}
+.facility-waste-types__style-cell{
+    width:10px;
+    min-height:10px;
+    border:none;
+}
+.facility-waste-types__title-cells{
+    text-align: left;
+    border:none;
+    font-size: small;
+}
+.facility-header__cells{
+    background-color: grey;
+}
+.facility-details__highlight{
+    background-color: #ffff7b;
+}
+.facility-notes__text{
+    width:11%;
+    float:left;
+}
+.facility-notes__body{
+    padding:0 8px 0 8px;
+    width:89%;
+    margin-left: 11%;
+    border: 1px solid black;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.facility-notes__body p{
+    margin: unset;
+    page-break-inside: avoid;
+}

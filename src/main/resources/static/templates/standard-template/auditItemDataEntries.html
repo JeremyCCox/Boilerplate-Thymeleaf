@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <div class="custom-page" th:fragment="findingsReport">
+      <div th:insert="~{header::headerSection('4.0 - Findings')}" />
+      <h3 id="findings">4.0 Findings</h3>
+    <p>
+        <span th:text="${receiverFacility.getRecFacGenFacAssessStmt()}"/>
+    </p>
+    <table class="audit-item-table">
+        <thead>
+            <tr class="audit-item-table-header-first">
+                <th class="audit-item-table__desc-columns">
+                   Reference Number
+                </th>
+                <th class="audit-item-table__desc-columns">
+                    Rating
+                </th>
+                <th>
+                    Finding
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="space-row" th:each="findings,findingsPos : ${findingsReport}">
+                <td class="audit-item-table__desc-columns">
+                    <span th:text="${findings.getAideAuditItem().getAuditItemId()}" />
+                </td>
+                <td class="audit-item-table__desc-columns">
+                    <span  th:text="${findings.getAideItemRating().getAuditItemRatingValue()}"/>
+                </td>
+                <td>
+                    <th:block th:each="finding : ${findingsList.get(findingsPos.index)}">
+                        <th:block th:if="${finding.length() > 0}">
+                            <th:block th:if="${finding.charAt(0)=='-'}">
+                                <li class="paragraph-list-item" th:text=" ${#strings.substring(finding,1)}"/>
+                            </th:block>
+                            <span th:unless="${finding.charAt(0) == '-'}" th:text="${finding}"/>
+                        </th:block>
+                    </th:block>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+  <div class="custom-page" th:fragment="protocolReport">
+      <div th:insert="~{header::headerSection('5.0 - Protocol Report')}"/>
+      <h2 id="protocol-report">5.0 Protocol Report</h2>
+      <div th:each="category,categoryPos : ${aideCategories}">
+          <div class="block" th:each="aide,aidePos : ${category}">
+              <div class="block">
+                  <th:block th:switch="true">
+                      <div  th:case="${aidePos.first && categoryPos.first}" >
+                          <h3>
+                              <span th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatId()}"/>
+                              <span th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatTitle()}"/>
+                          </h3>
+                      </div>
+                      <div th:case="${aidePos.first  && !categoryPos.first}" >
+                          <h3>
+                              <span th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatId()}"/>
+                              <span th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatTitle()}"/>
+                          </h3>
+
+                      </div>
+                  </th:block>
+                  <div>
+                      <h4>
+                          <span th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditSubCatId()}"/>
+                          <span th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditSubCatTitle()}"/>
+                          <br/>
+                      </h4>
+                  </div>
+                  <div class="audit-item-block">
+                      <h5>Aspect</h5>
+                      <p>
+                          <span th:text="${aide.getAideAuditItem().getAuditItemId()}"/>: <span th:text="${aide.getAideAuditItem().getAuditItemEvalCriteria()}"/>
+                      </p>
+                      <h5>Scoring Criteria</h5>
+                      <p>
+                          (<span th:text="${aide.getAideAuditItem().getAuditItemRatingGuide()}"/>)
+                      </p>
+                  </div>
+              </div>
+              <div class="block">
+                  <h5>Observation</h5>
+                  <div th:with="categories=${auditItemDataEntryObservationLists.get(categoryPos.index)}">
+                      <div th:with="observations=${categories.get(aidePos.index)}">
+                          <div th:each="observation : ${observations}" >
+                              <!--                              <span th:if="${observation.length()>0}">-->
+                              <!--                                  <p th:text="${observation}"/>-->
+                              <!--                              </span>-->
+                              <div th:if="${observation.length() > 0}">
+                                  <div th:if="${observation.charAt(0)=='-'}">
+                                      <li class="paragraph-list-item" th:text=" ${#strings.substring(observation,1)}"/>
+                                  </div>
+                                  <p th:unless="${observation.charAt(0) == '-'}" th:text="${observation}"/>
+                              </div>
+                          </div>
+                      </div>
+                      <!--                      <span  th:text="${aide.getAideAuditorObservations()}"/>-->
+                  </div>
+                  <h5>Score</h5>
+                  <p>
+                      Weight: <span th:text="${aide.getAideAuditItem().getAuditItemWeight()}"/>
+                  </p>
+                  <p>
+                      Rating:
+                      <span th:if="${aide.getAideItemRating() != null}" th:text="${aide.getAideItemRating().getAuditItemRating()}"/>
+                      <span th:if="${aide.getAideItemRating() == null}" th:text="'N/A'"/>
+                  </p>
+                  <p>
+
+                      Score:
+                      <th:block th:switch="${true}">
+                          <span th:case="${aide.getAideItemRating() == null}" th:text="'N/A'"/>
+                          <span th:case="${(aide.getAideItemRating() != null) && (aide.getAideItemRating().getAuditItemRatingValue() > 0)}" th:text="${aide.getAideItemScore()}"/>
+                          <span th:case="${(aide.getAideItemRating() != null) && (aide.getAideItemRating().getAuditItemRatingValue() == 0)}" th:text="'N/A'"/>
+                      </th:block>
+
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</body>
+</html>

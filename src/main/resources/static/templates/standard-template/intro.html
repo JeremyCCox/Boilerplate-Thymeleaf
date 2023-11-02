@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <div class="titlePage" th:fragment="titlePage">
+    <img class="titleImage" th:src="${titleImage}"/>
+      <h2>Environmental Risk Assessment </h2>
+      <br/>
+      <h3 >
+          <span th:text="${recFacName}"></span>
+      </h3>
+      <h3 th:text="${recFacLocation}"/>
+      <br/>
+      <br/>
+      <p>
+          Report Date: <span th:if="${inspectionDate != null}" th:text="${inspectionDate.getMonth().name().substring(0,1)+inspectionDate.getMonth().name().substring(1).toLowerCase() + ' '+inspectionDate.getDayOfMonth()+', '+inspectionDate.getYear()}"/>
+      </p>
+      <h2> CONFIDENTIAL</h2>
+      <br/>
+      <br/>
+      <img class="signImage" th:src="${signImage}"/>
+      <p th:utext="#{intro.address1}"/>
+      <p th:utext="#{intro.address2}"/>
+      <p th:utext="#{intro.phone}"/>
+      <p th:utext="#{intro.website}"/>
+  </div>
+<div th:fragment="reportContents">
+    <div th:insert="~{header::header}"/>
+    <h1 style="text-align:center;"> WRAP Environmental Risk Assessment<br/><span th:text="${recFacName}"/></h1>
+    <h3 style="text-align:center;">Table of Contents</h3>
+    <div class="wrapper">
+        <nav>
+        <ol class="report-contents__main-list">
+            <li>
+                <a href="#introduction">
+                    Introduction
+                </a>
+                <ol class="report-contents__nested-list">
+                    <li>
+                        <a href="#program-background">
+                            Program Background
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#assessment-methodology">
+                            Assessment Methodology
+                        </a>
+
+                        <ol class="report-contents__nested-list">
+                            <li>
+                                <a href="#site-inspection">
+                                    Site Inspection
+                                </a>
+
+                            </li>
+                            <li>
+                                <a href="#previous-wrap-assessments">
+                                    Previous WRAP Assessments
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#facility-details-small">
+                                    Facility Details
+                                </a>
+
+                           </li>
+                            <li>
+                                <a href="#interviews">
+                                    Interviews
+                                </a>
+                            </li>
+                        </ol>
+                    </li>
+                </ol>
+            </li>
+            <li >
+                <a href="#facility-details">
+                    Facility Details
+                </a>
+                <ol class="report-contents__nested-list">
+                    <li>
+                        <a href="#facility-types">
+                            Facility Types
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#site-location">
+                            Site Location
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#overview">
+                            Overview
+                        </a>
+
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <a href="#scoring-summary">
+                    Scoring Summary
+                </a>
+
+                <ol class="report-contents__nested-list">
+                    <li>
+                        <a href="#score">
+                            Score
+                        </a>
+
+                    </li>
+                    <li>
+                        <a href="#scoring-guide">
+                            Scoring Guide
+                        </a>
+
+                    </li>
+                </ol>
+            </li>
+            <li >
+                <a href="#findings">
+                    Findings
+                </a>
+
+            </li>
+            <li >
+                <a href="#protocol-report">
+                    Protocol Report
+                </a>
+
+            </li>
+            <li >
+                <a href="#reference-documents">
+                    Reference Documents
+                </a>
+
+            </li>
+            <li>
+                <a href="#facility-photographs">
+                    Facility Photographs and Plot Plan
+                </a>
+
+            </li>
+            <li>
+                <a href="#declaration">
+                    Declaration
+                </a>
+            </li>
+        </ol>
+        </nav>
+    </div>
+<div th:insert="~{footer::footer}"/>
+</div>
+  <div th:fragment="copyright" class="copyright">
+      <div>
+          <p>
+              <span th:text="${Copyright1}" />
+          </p>
+          <p>
+              <span th:text="${Copyright2}" />
+<!--              In addition, no part of this report shall be reproduced, distributed, or made available by any means to any other person, company, regulatory body, organization, or other third party who is not associated with a <span th:text="${auditYear}">(Audit Year)</span> WRAP Member Company.  Any use or reference to this report by any third party is done so at the third party's own risk.-->
+          </p>
+          <p>
+              <span th:text="${Copyright3}" />
+<!--              This report is based upon circumstances and conditions acknowledged herein, and upon information made available at the time of the assessment.  This report is presented as an overview and does not purport to address all possible environmental issues and risks as may be present nor does it purport to address all environmental control methods.  This report and any other services provided by Wotherspoon Environmental Inc. are advisory only and are not intended to replace the waste generator's or the waste receiver's own efforts to conduct investigations and take its own measures to address environmental issues and risks.  Wotherspoon Environmental Inc. specifically disclaims any representations that reliance on any part of this report will eliminate or reduce any risks to the environment or compliance obligations.-->
+          </p>
+      </div>
+      <p class="copyright">
+          © <span th:text="${Copyright4}"/>
+      </p>
+
+  </div>
+
+
+</body>
+</html>

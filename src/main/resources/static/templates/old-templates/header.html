@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <header th:fragment="header">
+
+        <div>
+            <img class="" th:src="${titleImage}"/>
+            <h3 class="headerText" th:utext="${'WRAP '+auditYear +' Report'}">Wrap Report</h3>
+            <h3 class="headerText">
+                <span th:text="${recFacName}"/>
+            </h3>
+        </div>
+
+    </header>
+</body>
+</html>

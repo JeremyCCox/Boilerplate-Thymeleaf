@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="custom-page"  th:fragment="refDocs">
+        <div th:insert="~{header::headerSection('6.0 - Reference Documents')}"/>
+        <h2 id="reference-documents">6.0 Reference Documents</h2>
+        <div>
+            <p>
+                <span th:text="${ReferenceDocuments1}"/>
+            </p>
+        </div>
+        <br/>
+        <div>
+            <p>
+                <span th:text="${ReferenceDocuments2}"/>
+            </p>
+        </div>
+        <table class="ref-docs">
+            <thead>
+                <tr>
+                    <th>Document / Information Item</th>
+                    <th>Document provided (Yes / No) - If No, indicate why.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="block" th:each="refDoc,iteratorStatus : ${refDocList}" th:with="refDocStatus=${auditRefDocs[iteratorStatus.index]} ">
+                    <td>
+                        <p>
+                            <span th:text="${refDoc.getRefDocTitle()}"/>
+                        </p>
+
+                    </td>
+                    <td>
+                        <p>
+                            <span th:text="${refDocStatus}"/>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

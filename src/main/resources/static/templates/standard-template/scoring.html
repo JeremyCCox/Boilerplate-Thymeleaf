@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="custom-page" th:fragment="scoring-summary">
+  <div th:insert="~{header::headerSection('3.0 - Scoring Summary')}"/>
+  <h2 id="scoring-summary">3.0 Scoring Summary</h2>
+  <h3 id="score">3.1 Score</h3>
+  <table class="scoring-table">
+    <tbody>
+    <tr>
+      <td>Overall Total Score</td>
+      <td class="score-percentage">
+        <span th:text="${overallTotalScore}" />
+      </td>
+    </tr>
+    <tr>
+      <td>Overall Total Possible Score</td>
+      <td class="score-percentage">
+        <span th:text="${overallTotalPossibleScore}" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Overall Percentage</b>
+      </td>
+      <td class="score-percentage">
+        <b>
+          <span th:text="${overallScorePercentage}" />
+          %
+        </b>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table class="scoring-table">
+    <tbody>
+    <tr>
+      <td>
+        Regulatory Affairs
+      </td>
+      <td class="score-percentage">
+        <span th:text="${regAffairsScore}" />
+        %
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Facility Design
+      </td>
+      <td class="score-percentage">
+        <span th:text="${facDesignScore}" />
+        %
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Facility Operation
+      </td>
+      <td class="score-percentage">
+        <span class="better-wrap" th:text="${facOpsScore}" />
+        %
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Finance and Insurance</td>
+      <td class="score-percentage">
+        <span th:text="${finAndInsScore}" />
+        %
+      </td>
+    </tr>
+    <tr>
+      <td>Environmental Impact</td>
+      <td>
+        <span th:text="${envImpactScore}" />
+        %
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:fragment="scoringGuide">
+  <h3 id="scoring-guide">3.2 Scoring Guide</h3>
+  <div class="scoring-info">
+    <p class="block">
+      <span class="better-wrap" th:text="${ScoringGuide1}"/>
+    </p>
+    <br/>
+    <p class="block">
+      <span class="better-wrap" th:text="${ScoringGuide2}"/>
+    </p>
+    <br/>
+    <p class="block">
+      <span class="better-wrap" th:text="${ScoringGuide3}"/>
+    </p>
+    <br/>
+  </div>
+  <div class="custom-page">
+    <p >
+      The final rating system is defined as follows:
+    </p>
+    <ul>
+      <li th:each="ratingGuide : ${overallRatingGuide}">
+        <div class="block">
+          <p>
+            <span th:text="${ratingGuide.getOverallRatingDescValues()}"/>
+          </p>
+          <br/>
+          <p>
+            <span th:text="${ratingGuide.getOverallRatingDesc()}"/>
+          </p>
+          <br/>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

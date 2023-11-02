@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <div class="custom-page" th:fragment="facilityPhotographs">
+      <div th:insert="~{header::header}"/>
+
+      <div th:each="facImg, imageNumber : ${facilityPhotographs}" class="image-div">
+          <img th:src="${facImg.getBase64Image()}"/>
+          <p th:text="${'Photo ' +imageNumber.count +': '+ facImg.getTitle()}"></p>
+      </div>
+
+  </div>
+</body>
+</html>

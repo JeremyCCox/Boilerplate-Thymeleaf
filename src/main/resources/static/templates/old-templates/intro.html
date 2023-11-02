@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <div class="titlePage" th:fragment="titlePage">
+    <img th:src="${titleImage}"/>
+      <h2>Waste Receiver Assessment Program <br/>Environmental Risk Assessment </h2>
+      <h2 >
+          <span th:text="${recFacName}"></span>
+      </h2>
+
+      <h2 th:text="${recFacLocation}"/>
+      <p th:text="${inspectionDate.getMonth().name().substring(0,1) + inspectionDate.getMonth().name().substring(1).toLowerCase() + ' '+inspectionDate.getYear()}"/>
+  </div>
+  <div class="reportPage custom-page" th:fragment="reportDetails">
+      <img th:src="${titleImage}"/>
+      <h2 th:utext="#{intro.subTitle(${auditYear})}"/>
+      <p th:utext="#{intro.auditor(${auditor})}"></p>
+      <h2>Wotherspoon Environmental Inc.</h2>
+      <p th:utext="#{intro.address}"></p>
+      <p th:utext="#{intro.contact}"></p>
+      <p class="smallText" th:utext="#{intro.refnum(${auditRef})}"></p>
+  </div>
+<div th:fragment="reportContents">
+    <div th:insert="~{header::header}"/>
+    <h2 style="text-align:center;">Report Contents</h2>
+    <div style="margin: 3%">
+        <h3> Introduction</h3>
+        <h3>
+            Section 1 - Facility Details Report
+        </h3>
+        <h3>
+            Section 2 - Findings Report
+        </h3>
+        <h3>
+            Section 3 - Protocol Report and Scoring Summary (With scoring guide)
+        </h3>
+        <h3>
+            Section 4 - Reference Documents
+        </h3>
+        <h3>
+            Section 5 - Facility Photographs and Plot Plan
+        </h3>
+
+    </div>
+    <div style="border: black 1px solid; text-align: left; margin-top: 10%; padding:8px">
+        <p>
+            <b >Copyright:</b><br/>
+            This report has been prepared for the exclusive use of the <span th:text="${auditYear}">(Audit Year)</span> WRAP Member Companies and their agents.  Waste receivers may not distribute or use this report for any type of marketing purposes.
+        </p>
+        <p>
+            In addition, no part of this report shall be reproduced, distributed, or made available by any means to any other person, company, regulatory body, organization, or other third party who is not associated with a <span th:text="${auditYear}">(Audit Year)</span> WRAP Member Company.  Any use or reference to this report by any third party is done so at the third party's own risk.
+        </p>
+        <p>
+            <b>Limitations:</b><br/>
+            This report is based upon circumstances and conditions acknowledged herein, and upon information made available at the time of the assessment.  This report is presented as an overview and does not purport to address all possible environmental issues and risks as may be present nor does it purport to address all environmental control methods.  This report and any other services provided by Wotherspoon Environmental Inc. are advisory only and are not intended to replace the waste generator's or the waste receiver's own efforts to conduct investigations and take its own measures to address environmental issues and risks.  Wotherspoon Environmental Inc. specifically disclaims any representations that reliance on any part of this report will eliminate or reduce any risks to the environment or compliance obligations.
+        </p>
+    </div>
+    <div style="text-align: center">
+        <b>© Copyright <span th:text="${auditYear}">(Audit Year)</span> Wotherspoon Environmental Inc.  All rights reserved.</b>
+    </div>
+<!--    <p  th:utext="#{intro.copyright(${auditYear})}"></p>-->
+
+<!--    <p style="text-align: center" th:utext="#{intro.copyright.final(${auditYear})}"></p>-->
+    <div th:insert="~{footer::footer}"/>
+</div>
+<div th:fragment="programBackground" class="custom-page">
+    <h3>Introduction</h3>
+    <div style="text-align: left; padding:0 8px 0 8px">
+        <h3>
+            Program Background
+        </h3>
+        <div style="padding:0 8px 0 8px">
+            <p>
+                The Waste Receiver Assessment Program (WRAP) was initiated by a consortium of petroleum exploration, production, and pipeline companies. The purpose of a WRAP assessment is to determine the environmental exposure and risk associated with the petroleum companies utilizing third party waste receivers for the treatment and disposal of oilfield wastes. The waste receivers provide a wide range of services including, but not limited to, treatment facilities, transfer stations, landfill disposal, sub-surface injection, and incineration facilities.
+            </p>
+            <p>
+                Each year, based on a three year rotational program, a group of waste receivers are selected for the current year program and approved by the consortium.  Wotherspoon Environmental Inc. acts as the administrator and assessor of the program.
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <h3>
+            Assessment Methodology
+        </h3>
+        <div style="padding:0 8px 0 8px">
+            <p>
+                The assessment methodology includes the following steps:
+            </p>
+            <div style="padding: 0 8px 0 8px">
+                <ul>
+                    <li>Contact corporate management of the waste receivers to review purpose and intent of WRAP program and collect applicable corporate information relevant to the assessment process. </li>
+                    <li>Supply the receiver with a list of required documents that would be reviewed during the on-site assessment. </li>
+                    <li> Schedule a suitable date for the on-site assessment and review background data. </li>
+                    <li>At the on-site assessment:
+                        <ul class="nested-list">
+                            <li>Conduct an opening meeting whereby the facility personnel are informed of the intent and focus of the assessment. Review site safety rules, policies and procedures. </li>
+                            <li>Complete an orientation tour with facility personnel. </li>
+                            <li>Review the applicable documents, reports, files and other pertinent material. </li>
+                            <li>Complete the assessment protocol with facility personnel. </li>
+                            <li>Conduct a closing meeting to discuss major findings and to provide an overall impression of the facility. </li>
+                        </ul>
+                    </li>
+                    <li> Following the on-site assessment, complete the scoring protocol.  If required, follow-up with the waste receiver to obtain additional information.</li>
+                    <li>Prepare WRAP report that documents the facility details, assessment findings, completed protocol, references utilized, and current photographs for the facility. </li>
+                </ul>
+            </div>
+            <p> The scoring protocol is divided into five major assessment categories</p>
+            <ul>
+                <ul class="nested-list">
+                    <li>
+                        Regulatory Affairs; Facility Design; Facility Operations; Financial and Insurance; and Environmental Impact.
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+<!--    <p style="text-align:  left " th:utext="#{intro.programBackground}"></p>-->
+<!--    <p style="text-align: left" th:utext="#{intro.assessmentMethodology}"></p>-->
+</div>
+</body>
+</html>

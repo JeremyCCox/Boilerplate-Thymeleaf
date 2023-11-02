@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<body>
+  <div class="custom-page" th:fragment="report">
+      <div th:insert="~{this::generalDetails}"/>
+      <br/>
+      <div th:insert="~{this::facilityContacts}"/>
+      <br/>
+      <div th:insert="~{this::wasteTypeTable}"/>
+      <br/>
+      <div th:insert="~{this::facilityAccessNotes}"/>
+      <br/>
+      <div th:insert="~{this::facilityOverviewNotes}"/>
+  </div>
+
+  <div th:fragment="generalDetails">
+
+      <table class="facility-details__names">
+          <tbody >
+              <tr class="facility-details__names-main">
+                  <th class="facility-details__names-title facility-header__cells" >
+                          Organization:
+                  </th>
+                  <th class="facility-details__names-body facility-details__highlight" th:text="${receiverFacility.recFacOrgOrgName}"/>
+                  <td class="facility-details__names-active">
+                        Is Active?
+                  </td>
+              </tr>
+              <tr>
+                  <th class="facility-details__names-title facility-header__cells">
+                      Facility Name:
+                  </th>
+                  <th  class="facility-details__names-body facility-details__highlight" >
+                      <span th:text="${receiverFacility.recFacName}"/>
+                  </th>
+                  <td class="facility-details__names-active">
+                      <label>
+                          <input type="checkbox" th:checked="${receiverFacility.getRecFacIsActive()}"/>
+                      </label>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+      <table class="facility-details__main">
+          <tbody>
+              <tr>
+                  <td class="facility-details__main-title">
+                      Mail address:
+                  </td>
+                  <td class="facility-details__main-body" colspan="3" th:text="${receiverFacility.getRecFacMailAddress()}" />
+                  <td class="facility-details__main-small-title">
+                      Phone:
+                  </td>
+                  <td class="facility-details__main-small-body"  th:text="${receiverFacility.getRecFacPhone()}"/>
+              </tr>
+              <tr>
+                  <td class="facility-details__main-title">
+                      City/Prov/Postal:
+                  </td>
+                  <td class="facility-details__tri-text" th:text="${receiverFacility.getRecFacCity() }" />
+                  <td class="facility-details__tri-text" th:text="${receiverFacility.getRecFacProvProvShort()}" />
+                  <td class="facility-details__tri-text" th:text="${receiverFacility.getRecFacPostal() }" />
+                  <td class="facility-details__main-small-title">
+                      Toll Free:
+                  </td>
+                  <td class="facility-details__main-small-body" th:text="${receiverFacility.getRecFacTollFree() }"/>
+              </tr>
+              <tr>
+                  <td class="facility-details__main-title">
+                      Location:
+                  </td>
+                  <th class="facility-details__main-body" colspan="3" th:text="${receiverFacility.getRecFacLocation()}" />
+                  <td class="facility-details__main-small-title">
+                      Fax:
+                  </td>
+                  <td class="facility-details__main-small-body" th:text="${receiverFacility.getRecFacFax()}"/>
+              </tr>
+              <tr>
+                  <td class="facility-details__main-title">
+                      Fac Type Supp
+                  </td>
+                  <td class="facility-details__main-body" colspan="3" th:text="${receiverFacility.getRecFacTypeSupplimental()}" />
+                  <td class="facility-details__main-fill" colspan="2"/>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+<div th:fragment="facilityContacts">
+    <table class="facility-sub-table">
+        <thead>
+            <tr class="facility-header__cells">
+                <th:block th:switch="true">
+                    <th class="facility-header__cells" colspan="3" th:case="${receiverFacilityContacts.size() < 1}">
+                        No facility contacts on file
+                    </th>
+                    <th class="facility-header__cells" colspan="3" th:case="${receiverFacilityContacts.size() == 1}">
+                        Facility Contact: (<span th:text="${auditYear}"/>)
+                    </th>
+                    <th class="facility-header__cells" colspan="3" th:case="${receiverFacilityContacts.size() > 1}">
+                        Facility Contacts: (<span th:text="${auditYear}"/>)
+                    </th>
+                </th:block>
+            </tr>
+            <tr >
+                <td class="facility-contacts__style-cell">
+
+                </td>
+                <td class="facility-contacts__title-cells">
+                    <i>
+                        Name (First &amp;  Last) / Position
+                    </i>
+                </td>
+                <td class="facility-contacts__title-cells">
+                    <i>
+                        Phone / Cell / Email
+                    </i>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        <block th:each="contact: ${receiverFacilityContacts}">
+            <tr>
+                <th colspan="2" class="facility-details__highlight" th:text="${contact.getContactNameFl()}"/>
+                <td th:text="${contact.getContactCell()}"/>
+            </tr>
+            <tr>
+                <td class="facility-contacts__style-cell"/>
+                <td th:text="${contact.getContactPosition()}"/>
+                <td th:text="${contact.getContactPhone()}"/>
+            </tr>
+            <tr>
+                <td class="facility-contacts__style-cell"/>
+                <td colspan="2"  >
+                    <a th:text="${contact.getContactEmail()}"/>
+                </td>
+            </tr>
+            <br/>
+        </block>
+
+        </tbody>
+    </table>
+</div>
+  <div th:fragment="wasteTypeTable">
+      <table class="facility-sub-table">
+          <thead>
+          <tr class="facility-header__cells">
+              <th colspan="2">
+                  Facility Waste Disposal Types
+              </th>
+          </tr>
+          <tr >
+              <td colspan="2" class="facility-waste-types__title-cells">
+                  <i>
+                      Waste Disposal Type / Notes
+                  </i>
+              </td>
+          </tr>
+          </thead>
+          <tbody th:each="rfwt: ${receiverFacilityWasteTypes}" >
+              <tr>
+                  <td class="facility-details__highlight" colspan="2" th:text="${rfwt.getRfwtDescDto().rfwtWasteDisposalType()}">
+                  </td>
+              </tr>
+              <tr>
+                  <td class="facility-waste-types__style-cell">
+
+                  </td>
+                  <td th:text="${rfwt.rfwtNotes}">
+
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+
+  <div th:fragment="facilityAccessNotes">
+        <div style="overflow: hidden; width: 100%">
+            <div class="facility-notes__text"> <b>Facility Access Notes:</b></div>
+            <div class="facility-notes__body">
+                <p th:text="${receiverFacilityAccessNotes}"/>
+            </div>
+        </div>
+  </div>
+  <div th:fragment="facilityOverviewNotes">
+      <div style="overflow: hidden; width: 100%">
+          <div  class="facility-notes__text"> <b>Facility Overview Notes:</b></div>
+          <div  class="facility-notes__body">
+              <th:block  th:each="facNotes :${receiverFacilityNotes}" >
+                  <p th:text="${facNotes}" />
+              </th:block>
+          </div>
+      </div>
+  </div>
+
+</body>
+</html>

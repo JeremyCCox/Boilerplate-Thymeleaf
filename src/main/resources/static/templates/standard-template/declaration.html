@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="facilityDeclarations">
+  <h2 id="declaration">8.0 Declaration</h2>
+  <p class="declaration-text">
+    <span th:text="${Declaration}"/>
+  </p>
+  <div th:each="declaration, imageNumber : ${facilityDeclarations}" class="declaration-div">
+    <img th:src="${declaration.getBase64Image()}"/>
+  </div>
+</div>
+</body>
+</html>

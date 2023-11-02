@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div style="page-break-after: always;" class="custom-page" th:fragment="fullSection">
+        <div th:insert="~{header::headerSection('7.0 - Facility Photographs & Plot Plan')}"/>
+        <h2 id="facility-photographs" th:style="'margin-bottom: 0;margin-top: 0'">7.0 Facility Photographs And Plot Plan</h2>
+        <div th:insert="~{this::facilityPlotPlan}"/>
+        <div  th:if="${facilityPhotographs.size() > 0}"   th:insert="~{this::facilityPhotographs}"/>
+    </div>
+    <div th:fragment="facilityPlotPlan">
+        <div th:each="plotDiagram, imageNumber : ${facilityPlotDiagram}" class="image-div">
+            <img th:src="${plotDiagram.getBase64Image()}" />
+            <p th:text="${plotDiagram.getTitle()}"></p>
+        </div>
+
+    </div>
+  <div th:fragment="facilityPhotographs">
+      <div th:each="facImg, imageNumber : ${facilityPhotographs}" class="image-div">
+          <div th:if="${ facImg.getDescription()!= null}">
+              <th:block th:switch="${facImg.getDescription().length() > 200}">
+                  <div class="image-page" th:case="${true}">
+                      <img th:src="${facImg.getBase64Image()}"/>
+                      <p th:text="${'Photo ' +imageNumber.count +': '+ facImg.getTitle()}"></p>
+                      <p th:text="${facImg.getDescription()}"/>
+                  </div>
+                  <div class="image-div" th:case="${false}">
+                      <img th:src="${facImg.getBase64Image()}"/>
+                      <p th:text="${'Photo ' +imageNumber.count +': '+ facImg.getTitle()}"></p>
+                      <p th:text="${facImg.getDescription()}"/>
+                  </div>
+              </th:block>
+          </div>
+          <th:block th:if="${ facImg.getDescription()== null}" >
+              <img th:src="${facImg.getBase64Image()}"/>
+              <p th:text="${'Photo ' +imageNumber.count +': '+ facImg.getTitle()}"></p>
+          </th:block>
+      </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class=" custom-page" th:fragment="programBackground">
+        <h1 style="text-align:center;"> WRAP Environmental Risk Assessment<br/><span th:text="${recFacName}"/></h1>
+        <h3 id="introduction">1.0 Introduction</h3>
+        <h4 id="program-background">
+            1.1 Program Background
+        </h4>
+        <div>
+            <p>
+                <span th:text="${ProgramBackground1}"/>
+            </p>
+            <p>
+                <span th:text="${ProgramBackground2}"/>
+            </p>
+        </div>
+        <h4 id="assessment-methodology">
+            1.2 Assessment Methodology
+        </h4>
+            <div>
+                <p>
+                    The assessment methodology includes the following steps:
+                </p>
+                <div>
+                    <ul class="simple-list">
+                        <li>Contact corporate management of the waste receivers to review purpose and intent of WRAP program and collect applicable corporate information relevant to the assessment process. </li>
+                        <li>Supply the receiver with a list of required documents that would be reviewed during the on-site assessment. </li>
+                        <li> Schedule a suitable date for the on-site assessment and review background data. </li>
+                        <li>At the on-site assessment:
+                            <ul class="nested-list simple-list">
+                                <li>Conduct an opening meeting whereby the facility personnel are informed of the intent and focus of the assessment. Review site safety rules, policies and procedures. </li>
+                                <li>Complete an orientation tour with facility personnel. </li>
+                                <li>Review the applicable documents, reports, files and other pertinent material. </li>
+                                <li>Complete the assessment protocol with facility personnel. </li>
+                                <li>Conduct a closing meeting to discuss major findings and to provide an overall impression of the facility. </li>
+                            </ul>
+                        </li>
+                        <li> Following the on-site assessment, complete the scoring protocol.  If required, follow-up with the waste receiver to obtain additional information.</li>
+                        <li>Prepare WRAP report that documents the facility details, assessment findings, completed protocol, references utilized, and current photographs for the facility. </li>
+                    </ul>
+                </div>
+                <p> The scoring protocol is divided into five major assessment categories</p>
+                    <ul class="nested-list">
+                        <li>
+                            Regulatory Affairs; Facility Design; Facility Operations; Financial and Insurance; and Environmental Impact.
+                        </li>
+                    </ul>
+            </div>
+
+    </div>
+</body>
+</html>

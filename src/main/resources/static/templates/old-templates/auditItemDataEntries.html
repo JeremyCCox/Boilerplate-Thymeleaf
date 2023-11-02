@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+  <div class="custom-page" th:fragment="findingsReport">
+    <table class="audit-item-table">
+        <thead>
+            <tr class="audit-item-table-header-first">
+                <th>
+                   Ref. Num
+                </th>
+                <th>
+                    Rating
+                </th>
+                <th>
+                    Auditor Findings
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="page-break-inside: avoid;" th:each=" findings : ${findingsReport}">
+                <td style="text-align: left;vertical-align: top; border: 1px solid black; min-width: 25px" th:text="${findings.getAideAuditItem().getAuditItemId()}">
+
+                </td>
+                <td style="text-align: center;vertical-align: top; border: 1px solid black; min-width: 25px" th:text="${findings.getAideItemRatingValue()}"></td>
+                <td style="border: 1px solid black;" th:each="findings: ${findings.getAideAuditorFindings()}">
+                    <span style="page-break-inside: avoid"  th:text="${findings}"/>
+                    <br/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div class="custom-page" th:fragment="protocolReportOld">
+        <table class="audit-item-table">
+                <th:block th:each="aide,aidePos : ${auditItemDataEntries}" th:with="auditItem=${auditItems[aidePos.index]}" th:switch="${aidePos.first}" >
+                    <th:block th:case="true">
+                        <thead class="audit-item-table-header">
+                        <tr class="audit-step-category-header"> <!-- This needs to be "first" to avoid double page break-->
+                            <th colspan="1" class="audit-step-category-id" th:text="${auditItem.getAuditItemSubCat().getAuditCat().getAuditCatId()}"></th>
+                            <th colspan="5" class="audit-step-category-title"th:text="${auditItem.getAuditItemSubCat().getAuditCat().getAuditCatTitle()}"></th>
+                        </tr>
+                        <tr class="audit-step-sub-category-header">
+                            <th colspan="2" class="audit-step-sub-category-id"  th:text="${auditItem.getAuditItemSubCat().getAuditSubCatId()}"></th>
+                            <th colspan="4" class="audit-step-sub-category-title" th:text="${auditItem.getAuditItemSubCat().getAuditSubCatTitle()}"></th>
+                        </tr>
+                        </thead>
+                    </th:block>
+                    <th:block th:case="false">
+                        <thead class="audit-item-table-header">
+                            <tr class="audit-step-category-header-first" th:unless="${auditItem.getAuditItemSubCat().getAuditCat().getAuditCatId()==auditItems[aidePos.index -1].getAuditItemSubCat().getAuditCat().getAuditCatId()}" >
+                                <th colspan="1" class="audit-step-category-id" th:text="${auditItem.getAuditItemSubCat().getAuditCat().getAuditCatId()}"></th>
+                                <th colspan="5" class="audit-step-category-title" th:text="${auditItem.getAuditItemSubCat().getAuditCat().getAuditCatTitle()}"></th>
+                            </tr>
+                            <tr class="audit-step-sub-category-header"  th:unless="${auditItem.getAuditItemSubCat().getAuditSubCatId()==auditItems[aidePos.index  -1].getAuditItemSubCat().getAuditSubCatId()}">
+                                <th colspan="2" class="audit-step-sub-category-id" th:text="${auditItem.getAuditItemSubCat().getAuditSubCatId()}"></th>
+                                <th colspan="4" class="audit-step-sub-category-title" th:text="${auditItem.getAuditItemSubCat().getAuditSubCatTitle()}"></th>
+                            </tr>
+                        </thead>
+                    </th:block>
+
+                    <tbody class="audit-step-body">
+                    <tr>
+                        <td th:text="${auditItem.getAuditItemId()}"/>
+                        <td th:text="${auditItem.getAuditItemEvalCriteria()}"/>
+                        <td th:text="${auditItem.getAuditItemWeight()}"/>
+                        <td th:text="${aide.getAideItemRating().getAuditItemRatingValue()}"/>
+                        <td th:text="${aide.getAideItemScore()}"/>
+                        <td th:text="${auditItem.getAuditItemRatingGuide()}"/>
+                    </tr>
+                    <tr >
+                        <td colspan="6" th:text="${aide.getAideAuditorObservations()}"/>
+                    </tr>
+                    </tbody>
+                </th:block>
+        </table>
+    </div>
+  <div class="custom-page" th:fragment="protocolReport">
+      <h1>Protocol Report And Scoring Summary</h1>
+      <div th:each="category,categoryPos : ${aideCategories}" >
+          <table class="audit-item-table">
+              <th:block  th:each="aide,aidePos : ${category}">
+                  <thead>
+                      <th:block th:switch="true">
+                          <tr class="audit-item-category-header-first" th:case="${aidePos.first && categoryPos.first}" >
+                              <th  colspan="1" th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatId() +'First'}"></th>
+                              <th colspan="5" th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatTitle()}"></th>
+                          </tr>
+                          <tr th:case="${aidePos.first  && !categoryPos.first}" class="audit-item-category-header">
+                              <th colspan="1" th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatId() +'Not First'}"></th>
+                              <th colspan="5" th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditCat().getAuditCatTitle()}"></th>
+                          </tr>
+                      </th:block>
+                      <tr class="audit-item-sub-category-header">
+                          <th class="no-break" colspan="2" th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditSubCatId()}"></th>
+                          <th class="no-break" colspan="4" th:text="${aide.getAideAuditItem().getAuditItemSubCat().getAuditSubCatTitle()}"></th>
+                      </tr>
+                  </thead>
+                  <tbody class="audit-item-body">
+                      <tr class="no-break">
+                          <td th:text="${aide.getAideAuditItem().getAuditItemId()}"/>
+                          <td th:text="${aide.getAideAuditItem().getAuditItemEvalCriteria()}"/>
+                          <td th:text="${aide.getAideAuditItem().getAuditItemWeight()}"/>
+                          <td th:text="${aide.getAideItemRating().getAuditItemRatingValue()}"/>
+                          <td th:text="${aide.getAideItemScore()}"/>
+                          <td th:text="${aide.getAideAuditItem().getAuditItemRatingGuide()}"/>
+                      </tr>
+                      <tr class="no-break">
+                          <td colspan="6" th:text="${aide.getAideAuditorObservations()}"/>
+                      </tr>
+                  </tbody>
+              </th:block>
+          </table>
+      </div>
+  </div>
+
+    <div class="custom-page" th:fragment="scoringGuide">
+        <h2>Scoring Guide</h2>
+        <p>
+            The WRAP consortium (i.e. the participant waste generators) has assigned each evaluation criteria''s question in the scoring protocol a "weighting" on a scale of 1 to 5. The "weighting" defines the importance of a particular item relative to the other items with 5 being the most important.
+        </p>
+        <p>
+            A "rating", on a scale of 1 to 5, is assigned to each item for the facility''s assessed performance of that item. The rating is based on the assessor''s documentation review, visual observations, and communications (i.e. testimonials) with facility and corporate personnel. The rating values are based on the subjective judgment of the assessor. The relative rate associated with each item is an opinion of its impact on the risk management evaluation with respect to the protocol''s rating guide. Questions deemed "Not Applicable" to a particular facility are removed from the "Total Score Possible" calculation.
+        </p>
+        <p>
+            The rating is multiplied by the item''s weighting, which provides a score for that item. Taking the sum of all of the item scores, divided by the "Total Score Possible" (x 100) provides the final score percentage and rating.
+        </p>
+        <p>
+            The final rating system is defined as follows:
+        </p>
+        <table>
+            <tbody>
+            <tr th:each="ratingGuide : ${overallRatingGuide}">
+                <td style="width: 1in; text-align: center;" th:text="${ratingGuide.getOverallRatingDescValues()}"></td>
+                <td th:text="${ratingGuide.getOverallRatingDesc()}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>

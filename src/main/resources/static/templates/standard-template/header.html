@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <header th:fragment="header">
+        <div class="header-div">
+            <table class="header__table">
+                <tr class="header__table">
+                    <td class="header__left header__table">
+                        <img th:src="${titleImage}"/>
+                    </td>
+                    <td class="header__right header__table">
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </header>
+    <header th:fragment="headerSection(section)">
+        <div class="header-div">
+            <table class="header__table">
+                <tr class="header__table">
+                    <td class="header__left header__table">
+                        <img th:src="${titleImage}"/>
+                    </td>
+                    <td class="header__right header__table">
+                        <p>
+                            <i>
+                                <span th:text="${section}"/>
+                            </i>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </header>
+</body>
+</html>

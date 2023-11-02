@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="custom-page"  th:fragment="refDocs">
+        <div th:insert="~{header::header}"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Document / Information Item</th>
+                    <th>Document provided (Yes / No) - If No, indication as to why.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="refDoc,iteratorStatus : ${refDocList}" th:with="refDocStatus=${auditRefDocs[iteratorStatus.index]} ">
+                    <td th:text="${refDoc.getRefDocTitle()}"></td>
+                    <td th:text="${refDocStatus}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <th:block>
+
+        </th:block>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<footer th:fragment="header">
+    <div class="footerStyles" >
+        <table class="footer__table">
+            <tr class="footer__table">
+                <td class="footer__left footer__table">
+                    <p><span th:text="${receiverFacility.recFacName}"/> WRAP - <span th:if="${inspectionDate != null}" th:text="${inspectionDate.getMonth().name().substring(0,1)+inspectionDate.getMonth().name().substring(1).toLowerCase()+', '+inspectionDate.getYear()}"/></p>
+                    <p><span>Wotherspoon Environmental Inc.</span></p>
+                </td>
+                <td class="footer__right footer__table">
+                    <span id="page-number"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</footer>
+</body>
+</html>

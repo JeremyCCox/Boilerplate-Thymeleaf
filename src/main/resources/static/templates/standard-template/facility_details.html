@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<body>
+  <div th:fragment="details">
+      <div th:insert="~{header::headerSection('1.0 - Introduction')}"/>
+      <div th:insert="~{this::site_inspection}"/>
+      <div th:insert="~{this::previous_assessments}"/>
+      <div th:insert="~{this::generalDetails}"/>
+      <div th:insert="~{this::facilityContacts}"/>
+  </div>
+  <div class="block" th:fragment="site_inspection">
+      <h4 id="site-inspection">1.2.1 Site Inspection</h4>
+      <table>
+          <tbody>
+          <tr>
+              <td>
+                  Date of On-Site Inspection:
+              </td>
+              <td>
+                  <span th:if="${inspectionDate != null}" th:text="${inspectionDate.getMonth().name().substring(0,1)+inspectionDate.getMonth().name().substring(1).toLowerCase() + ' '+inspectionDate.getDayOfMonth()+', '+inspectionDate.getYear()}"/>
+              </td>
+          </tr>
+<!--          <tr>-->
+<!--              <td>-->
+<!--                  WEI Reference #:-->
+<!--              </td>-->
+<!--              <td>-->
+<!--                  <span th:text="${auditRef}"/>-->
+<!--              </td>-->
+<!--          </tr>-->
+          <tr>
+              <td>
+                  Assessor:
+              </td>
+              <td>
+                  <span th:text="${auditorFullName}"/>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="block" th:fragment="previous_assessments" >
+      <h4 id="previous-wrap-assessments">1.2.2 Previous WRAP Assessments</h4>
+      <p><span th:text="${recFacName}"/> was previously assessed through WRAP in</p>
+      <ul th:each="assessmentYear: ${previousAssessments}">
+          <li th:text="${assessmentYear}"></li>
+      </ul>
+  </div>
+  <div class="block" th:fragment="generalDetails">
+      <h4 id="facility-details-small">1.2.3 Facility Details</h4>
+      <table class="facility-details">
+          <tbody >
+          <tr >
+              <td  >
+                  Organization:
+              </td>
+              <td>
+                  <p>
+                      <span th:text="${receiverFacility.recFacOrgOrgName}"/>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Facility Name:
+              </td>
+              <td >
+                  <p>
+                    <span th:text="${receiverFacility.recFacName}"/>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Mail address:
+              </td>
+              <td>
+                <p>
+                    <span  th:text="${receiverFacility.getRecFacMailAddress()}" />
+                </p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Phone Number:
+              </td>
+              <td>
+                  <p>
+                      <span th:text="${receiverFacility.getRecFacPhone()}"/>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  City
+              </td>
+              <td>
+                  <p>
+                      <span th:text="${receiverFacility.getRecFacCity()}"/>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Province
+              </td>
+              <td>
+                  <p>
+                      <span th:text="${receiverFacility.getRecFacProvProvName()}"/>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  Postal
+              </td>
+              <td>
+                  <p>
+                      <span th:text="${receiverFacility.getRecFacPostal()}"/>
+                  </p>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="block" th:fragment="facilityContacts">
+      <h4 id="interviews">1.2.4 Interviews</h4>
+      <th:block th:switch="true">
+          <p  th:case="${receiverFacilityContacts.size() < 1}">
+              No facility contacts on file
+          </p>
+          <p   th:case="${receiverFacilityContacts.size() >= 1}">
+              WEI conducted interviews and received assistance during the WRAP Environmental Risk
+              Assessment from the following personnel:
+          </p>
+      </th:block>
+      <div class="contact-box">
+          <ul>
+              <li th:each="contact: ${receiverFacilityContacts}">
+                  <span th:text="${contact.getContactNameFl()}"/> - <span th:text="${contact.getContactPosition()}"/>
+                  <ul class="contact-details">
+                      <li th:if="${contact.getContactPhone()!= null && contact.getContactPhone()!= ''}"><span th:text="${contact.getContactPhone()}"/>(Office)</li>
+                      <li th:if="${contact.getContactCell() != null && contact.getContactCell() != ''}"><span th:text="${contact.getContactCell()}"/>(Cell)</li>
+                      <li th:if="${contact.getContactEmail() != null && contact.getContactEmail()!= ''}"><span th:text="${contact.getContactEmail()}"/></li>
+                      <li th:if="${contact.getContactPager() != null && contact.getContactPager()!= ''}"><span th:text="${contact.getContactPager()}"/>(Pager)</li>
+                      <li th:if="${contact.getContactFax() != null && contact.getContactFax()!= ''}"><span th:text="${contact.getContactFax()}"/>(Fax)</li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+
+      <p>
+          <span th:text="${Interviews1}"/>
+      </p>
+  </div>
+
+
+  <div class="custom-page" th:fragment="report" >
+      <div th:insert="~{header::headerSection('2.0 - Facility Details')}"/>
+      <h3 id="facility-details">2.0 Facility Details</h3>
+      <div th:insert="~{this::wasteTypeTable}"/>
+      <br/>
+      <div th:insert="~{this::facilityAccessNotes}"/>
+      <br/>
+      <div th:insert="~{this::facilityOverviewNotes}"/>
+  </div>
+  <div class="block" th:fragment="wasteTypeTable">
+      <h4 id="facility-types">2.1 Facility Types</h4>
+      <table class="facility-sub-table">
+          <tbody th:each="rfwt: ${receiverFacilityWasteTypes}" >
+          <tr>
+              <td class="facility-waste-types__title-cell" >
+                  <span th:text="${rfwt.getRfwtDescDto().rfwtWasteDisposalType()}"/>
+              </td>
+
+          </tr>
+          <tr>
+              <td class="facility-waste-types__type-cell" >
+                  <span th:text="${rfwt.getRfwtDescDto().rfwtTypeDescription()}"/>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+  </div>
+  <div class="block" th:fragment="facilityAccessNotes">
+      <h4 id="site-location">2.2 Site Location</h4>
+      <div class="facility-access-notes large-text__wrapper">
+          <p>
+              <span th:text="${receiverFacilityAccessNotes.get(0)}"/>
+          </p>
+      </div>
+  </div>
+  <div th:fragment="facilityOverviewNotes">
+      <h4 id="overview">2.3 Overview</h4>
+      <div>
+          <div  class="facility-notes__body large-text__wrapper">
+              <span th:each="facNotes :${receiverFacilityNotes}">
+                  <span th:if="${facNotes.length() > 0}">
+                        <p th:if="${facNotes.charAt(0)=='-'}" class="paragraph-list-item" th:text="${facNotes}"/>
+                        <p th:unless="${facNotes.charAt(0) == '-'}" class="paragraph-text" th:text="${facNotes}"/>
+                  </span>
+              </span>
+          </div>
+      </div>
+  </div>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${reportTitle}?:'Untitled Wrap Audit Report'"></title>
+    <link th:href="@{classpath:static/styles/standard.css}" href="../../styles/old.css" rel="stylesheet"/>
+    </head>
+<body class="intro-pages">
+<div th:insert="~{intro::titlePage}"/>
+<div th:insert="~{intro::reportDetails}"/>
+</body>
+<body class="standard-pages">
+    <div th:insert="~{intro::reportContents}"/>
+    <div th:insert="~{intro::programBackground}"/>
+    <div th:insert="~{facility_details::report}"/>
+    <div th:insert="~{auditItemDataEntries::findingsReport}"/>
+    <div th:insert="~{auditItemDataEntries::protocolReport}"/>
+    <div th:insert="~{auditItemDataEntries::scoringGuide}"/>
+    <div th:insert="~{refDocList::refDocs}"/>
+    <div th:if="${facilityPhotographs.size() > 0}" th:insert="~{facilityPhotographs::facilityPhotographs}"/>
+</body>
+</html>
+<!--
+    Initial "Example" code (image, fragment, etc...)
+
+<h3 style="text-align: center; color: green">
+    <span th:text="'Welcome to ' + ${to} + '!'"></span>
+</h3>
+<img th:src="${image}"/>
+<div class="pdfPage">
+
+</div>
+<div th:insert="~{content :: content}"
+
+>-->
